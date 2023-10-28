@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import './Count.tsx'
+import Count from './Count.tsx';
 
 interface Cell{
   id: number;
@@ -73,7 +75,9 @@ const App = () => {
 
   return (
     <>
-      Count: {count}
+      <div>
+        <Count number={count}/>
+      </div>
 
       <div className="field">
         {field.map(cell =>(
