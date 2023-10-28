@@ -8,9 +8,9 @@ interface Cell{
 }
 
 const App = () => {
-
   const [field, setField] = useState<Cell[]>([]);
   const [count, setCount] = useState<number>(0);
+  const [win, setWin] = useState(false);
 
   const getFields = () => {
     const cells = [];
@@ -25,31 +25,38 @@ const App = () => {
   };
 
   const changeCount = (cell: Cell) => {
-    if (cell.clicked === 'hidden') {
+    if (cell.clicked === 'hidden' && !win) {
       setCount(prevState => prevState + 1);
+    }
+
+    if (win) {
+      alert('Reset game');
     }
   };
 
   const checkCell = (id: number) => {
 
-    setField(prevState => prevState.map(cell => {
+    setField(field.map(cell => {
       if (id === cell.id) {
-
-        if (cell.clicked === 'hidden') {
-          if (cell.hasItem) {
-            return {
-              ...cell,
-              clicked: 'win-cell'
-            }
-          } else {
-            return {
-              ...cell,
-              clicked: 'show'
+        if (!win) {
+          if (cell.clicked === 'hidden') {
+            if (cell.hasItem) {
+              setWin(true);
+              return {
+                ...cell,
+                clicked: 'win-cell'
+              }
+            } else {
+              return {
+                ...cell,
+                clicked: 'show'
+              }
             }
           }
-        }
 
+        }
       }
+
       return cell;
     }));
   };
@@ -57,6 +64,7 @@ const App = () => {
   const resetGame = () => {
     setField([]);
     setCount(0);
+    setWin(false);
   }
 
   if (field.length === 0) {
