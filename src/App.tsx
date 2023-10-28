@@ -26,11 +26,19 @@ const App = () => {
     console.log(cells);
   };
 
-
   if (field.length === 0) {
     getFields();
   }
 
+  return (
+    <>
+      <div className="field">
+        {field.map(cell =>(
+          <div key={cell.id} className={`cell ${cell.clicked}`}></div>
+        )) }
+      </div>
+    </>
+  );
 
 };
 

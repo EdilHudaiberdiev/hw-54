@@ -4,3 +4,28 @@
   padding: 2rem;
   text-align: center;
 }
+
+.field{
+  display: flex;
+  flex-wrap: wrap;
+  width: 132px;
+  height: 132px;
+  border: 2px solid black;
+}
+
+.cell{
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+}
+
+.hidden {
+  background: #213547;
+}
+
+.show{
+  background: #fff;
+}
+
+
+
