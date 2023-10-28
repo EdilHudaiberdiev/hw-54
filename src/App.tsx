@@ -11,6 +11,7 @@ interface Cell{
 const App = () => {
 
   const [field, setField] = useState<Cell[]>([]);
+  const [count, setCount] = useState<number>(0);
 
   const getFields = () => {
     const cells = [];
@@ -22,24 +23,34 @@ const App = () => {
     cells[randonIndex].hasItem = true;
 
     setField(cells);
-
-    console.log(cells);
   };
 
+  const changeCount = (cell: Cell) => {
+    if (cell.clicked === 'hidden') {
+      setCount(prevState => prevState + 1);
+    }
+  };
+
+
   const checkCell = (id: number) => {
+
     setField(prevState => prevState.map(cell => {
       if (id === cell.id) {
-        if (cell.hasItem) {
-          return {
-            ...cell,
-            clicked: 'win-cell'
-          }
-        } else {
-          return {
-            ...cell,
-            clicked: 'show'
+
+        if (cell.clicked === 'hidden') {
+          if (cell.hasItem) {
+            return {
+              ...cell,
+              clicked: 'win-cell'
+            }
+          } else {
+            return {
+              ...cell,
+              clicked: 'show'
+            }
           }
         }
+
       }
       return cell;
     }));
@@ -51,9 +62,17 @@ const App = () => {
 
   return (
     <>
+      Count: {count}
+
       <div className="field">
         {field.map(cell =>(
-          <div onClick={() => checkCell(cell.id)} key={cell.id} className={`cell ${cell.clicked}`}></div>
+          <div
+            onClick={() => {
+              checkCell(cell.id)
+              changeCount(cell)
+            }}
+            key={cell.id}
+            className={`cell ${cell.clicked}`}/>
         )) }
       </div>
     </>
