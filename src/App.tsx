@@ -26,6 +26,25 @@ const App = () => {
     console.log(cells);
   };
 
+  const checkCell = (id: number) => {
+    setField(prevState => prevState.map(cell => {
+      if (id === cell.id) {
+        if (cell.hasItem) {
+          return {
+            ...cell,
+            clicked: 'win-cell'
+          }
+        } else {
+          return {
+            ...cell,
+            clicked: 'show'
+          }
+        }
+      }
+      return cell;
+    }));
+  };
+
   if (field.length === 0) {
     getFields();
   }
@@ -34,7 +53,7 @@ const App = () => {
     <>
       <div className="field">
         {field.map(cell =>(
-          <div key={cell.id} className={`cell ${cell.clicked}`}></div>
+          <div onClick={() => checkCell(cell.id)} key={cell.id} className={`cell ${cell.clicked}`}></div>
         )) }
       </div>
     </>
