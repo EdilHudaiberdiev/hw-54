@@ -7,7 +7,6 @@ interface Cell{
   clicked: string;
 }
 
-
 const App = () => {
 
   const [field, setField] = useState<Cell[]>([]);
@@ -30,7 +29,6 @@ const App = () => {
       setCount(prevState => prevState + 1);
     }
   };
-
 
   const checkCell = (id: number) => {
 
@@ -56,6 +54,11 @@ const App = () => {
     }));
   };
 
+  const resetGame = () => {
+    setField([]);
+    setCount(0);
+  }
+
   if (field.length === 0) {
     getFields();
   }
@@ -75,6 +78,8 @@ const App = () => {
             className={`cell ${cell.clicked}`}/>
         )) }
       </div>
+
+      <button onClick={resetGame}>Reset</button>
     </>
   );
 
